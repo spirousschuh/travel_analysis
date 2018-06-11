@@ -3,6 +3,7 @@ import datetime
 import pytest
 from pyspark import Row
 
+from travel_analysis.const import NINE, NINE_PRE
 from travel_analysis.travel_predictions.model.linear_regression import train
 from travel_analysis.utils.io_spark import get_spark_session
 
@@ -50,6 +51,18 @@ def training_sample(spark_session):
 
 
 @pytest.fixture
+def missing_sample(spark_session):
+    rows = [Row(index=1, ride_departure=datetime.datetime(2015, 1, 7, 17, 15),
+                capacity=100.0, tickets_9_eur=None, tickets_12_eur=10.0,
+                tickets_15_eur=5.0, tickets_19_eur=5.0, direction='B->A'),
+            Row(index=1, ride_departure=datetime.datetime(2015, 1, 7, 18, 45),
+                capacity=100.0, tickets_9_eur=80.0, tickets_12_eur=10.0,
+                tickets_15_eur=5.0, tickets_19_eur=5.0, direction='A->B')]
+
+    return spark_session.createDataFrame(rows)
+
+
+@pytest.fixture
 def sample_predictions(training_sample):
-    trained_model = train(training_sample)
+    trained_model = train(training_sample, NINE, NINE_PRE)
     return trained_model.transform(training_sample)

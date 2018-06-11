@@ -1,6 +1,6 @@
 from pyspark.ml import PipelineModel
 
-from travel_analysis.const import NINE
+from travel_analysis.const import NINE, NINE_PRE
 from travel_analysis.travel_predictions.model.linear_regression import train
 
 
@@ -8,7 +8,7 @@ def test_linear_regression_training(training_sample):
     # given
 
     # when
-    trained_model = train(training_sample)
+    trained_model = train(training_sample, NINE, NINE_PRE)
 
     # then
     assert isinstance(trained_model, PipelineModel)

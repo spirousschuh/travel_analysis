@@ -17,5 +17,4 @@ def get_spark_session(app_name=SPARK_APP_NAME):
 def get_dataframe(data_path):
     spark_session = get_spark_session()
     # get raw training data
-    return spark_session.read.csv(
-        data_path, header=True, inferSchema=True)
+    return spark_session.read.csv(data_path, header=True, inferSchema=True)
