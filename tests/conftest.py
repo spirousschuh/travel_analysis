@@ -45,7 +45,7 @@ def training_sample(spark_session):
             tickets_15_eur=0.0, tickets_19_eur=0.0, direction='B->A'),
         Row(index=9, ride_departure=datetime.datetime(2015, 1, 7, 18, 45),
             capacity=82.0, tickets_9_eur=78.0, tickets_12_eur=2.0,
-            tickets_15_eur=1.0, tickets_19_eur=1.0, direction='A->B')]
+            tickets_15_eur=1.0, tickets_19_eur=2.0, direction='A->B')]
 
     return spark_session.createDataFrame(rows)
 

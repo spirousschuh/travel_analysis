@@ -10,9 +10,8 @@ README = open(os.path.join(here, 'README.md')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.md')).read()
 
 requires = [
-    'coverage', 'seaborn', 'pytest', 'pytest-cov',
-    ]
-
+    'coverage', 'seaborn', 'pytest', 'pyspark', 'jupyter', 'holidays'
+]
 
 setup(
     name='travel analysis',
@@ -24,7 +23,7 @@ setup(
         'Programming Language :: Python :: 3.6'
     ],
     keywords='forecast optimize travel prices',
-    author='spirousschuh    ',
+    author='spirousschuh',
     author_email='hasensilvester@gmail.com',
     url='https://github.com/spirousschuh/travel_analysis',
     license='None',

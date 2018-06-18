@@ -7,7 +7,7 @@ from travel_analysis.travel_predictions.features.missing_values import \
 
 def test_get_distribution(training_sample):
     # given
-    estimator = MissingEstimator(inputCol=NINE, outputCol=NINE_PRE)
+    estimator = MissingEstimator(outputCol=NINE_PRE)
 
     # when
     distribution = estimator.get_distribution(training_sample)
@@ -18,7 +18,7 @@ def test_get_distribution(training_sample):
 
 def test_get_distribution_from_missing_data(missing_sample):
     # given
-    estimator = MissingEstimator(inputCol=NINE, outputCol=NINE_PRE)
+    estimator = MissingEstimator(outputCol=NINE_PRE)
 
     # when
     distribution = estimator.get_distribution(missing_sample)
@@ -29,19 +29,19 @@ def test_get_distribution_from_missing_data(missing_sample):
 
 def test_get_missing_value_model(missing_sample):
     # given
-    estimator = MissingEstimator(inputCol=NINE, outputCol=NINE_PRE)
+    estimator = MissingEstimator(outputCol=NINE_PRE)
 
     # when
     trained_model = estimator.fit(missing_sample)
 
     # then
-    assert trained_model.distribution == approx([2 / 3, 1 / 6, 1 / 12, 1 / 12])
+    assert trained_model.rides_per_day == approx([2 / 3, 1 / 6, 1 / 12, 1 / 12])
 
 
 def test_get_missing_value_single_replacement():
     # given
     missing_model = MissingValues(distribution=[0.8, 0.1, 0.05, 0.05],
-                                  inputCol=NINE, outputCol=NINE)
+                                  outputCol=NINE)
 
     # when / then
     assert missing_model.single_replacement(80, 10., 5., 5.) == 80
@@ -55,7 +55,7 @@ def test_get_missing_value_single_replacement():
 def test_get_missing_value_transformation(missing_sample):
     # given
     missing_model = MissingValues(distribution=[0.8, 0.1, 0.05, 0.05],
-                                  inputCol=NINE, outputCol=NINE)
+                                  outputCol=NINE)
 
     # when
     predictions_df = missing_model.transform(missing_sample)

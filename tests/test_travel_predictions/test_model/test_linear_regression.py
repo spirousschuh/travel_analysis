@@ -8,7 +8,7 @@ def test_linear_regression_training(training_sample):
     # given
 
     # when
-    trained_model = train(training_sample, NINE, NINE_PRE)
+    trained_model = train(training_sample)
 
     # then
     assert isinstance(trained_model, PipelineModel)
@@ -16,7 +16,7 @@ def test_linear_regression_training(training_sample):
 
 def test_predictions_of_the_model(sample_predictions):
     all_rows = [row.asDict() for row in sample_predictions.collect()]
-    predictions = [row['prediction'] for row in all_rows]
+    predictions = [row[NINE_PRE] for row in all_rows]
     labels = [row[NINE] for row in all_rows]
     differences = [abs(prediction - label)
                    for (prediction, label) in zip(predictions, labels)]

@@ -1,7 +1,8 @@
 from travel_analysis.const import NINE, NINE_PRE, NINETEEN, FIFTEEN, TWELF, \
     NINETEEN_PRE, FIFTEEN_PRE, TWELF_PRE, FULL_TRAINING_DATA
 from travel_analysis.travel_predictions.model.evaluation import \
-    get_r2_metrics, evaluate_model_on_all_price_levels
+    get_r2_metrics, evaluate_model_on_all_price_levels, \
+    filter_weird_observations
 from travel_analysis.travel_predictions.model.linear_regression import train
 from travel_analysis.utils.io_spark import get_dataframe
 
@@ -37,3 +38,11 @@ def test_evaluate_model_on_all_price_levels(training_sample):
 
     # then
     assert all([0 < one_r2 < 1 for one_r2 in metrices])
+
+
+def test_filter_weird_observations(training_sample):
+    # when
+    filtered = filter_weird_observations(training_sample)
+
+    # then
+    assert len([row for row in filtered.collect()]) == 9

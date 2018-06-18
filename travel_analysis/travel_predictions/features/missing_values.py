@@ -34,7 +34,7 @@ class MissingEstimator(Estimator, HasInputCols, HasOutputCol):
 
 class MissingValues(Transformer, HasInputCols, HasOutputCol):
     _distribution = Param(Params._dummy(), '_distribution',
-                          "distribution of seats over ticket prices ",
+                          "rides_per_day of seats over ticket prices ",
                           typeConverter=TypeConverters.toListFloat)
 
     def __init__(self,
@@ -53,7 +53,7 @@ class MissingValues(Transformer, HasInputCols, HasOutputCol):
     @property
     def distribution(self):
         """
-        Gets the value of the Spark parameter for the distribution.
+        Gets the value of the Spark parameter for the rides_per_day.
         """
         return self.getOrDefault(self._distribution)
 
